@@ -1,18 +1,15 @@
 <?php
 /**
+ *
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 namespace Magento\Backup\Controller\Adminhtml\Index;
 
-use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
 
-/**
- * Create backup controller
- */
-class Create extends \Magento\Backup\Controller\Adminhtml\Index implements HttpPostActionInterface
+class Create extends \Magento\Backup\Controller\Adminhtml\Index
 {
     /**
      * Create backup action.
@@ -58,9 +55,7 @@ class Create extends \Magento\Backup\Controller\Adminhtml\Index implements HttpP
             $this->_coreRegistry->register('backup_manager', $backupManager);
 
             if ($this->getRequest()->getParam('maintenance_mode')) {
-                $this->maintenanceMode->set(true);
-
-                if (!$this->maintenanceMode->isOn()) {
+                if (!$this->maintenanceMode->set(true)) {
                     $response->setError(
                         __(
                             'You need more permissions to activate maintenance mode right now.'

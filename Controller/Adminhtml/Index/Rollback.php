@@ -6,16 +6,13 @@
  */
 namespace Magento\Backup\Controller\Adminhtml\Index;
 
-use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
 
 /**
- * Backup rollback controller.
- *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class Rollback extends \Magento\Backup\Controller\Adminhtml\Index implements HttpPostActionInterface
+class Rollback extends \Magento\Backup\Controller\Adminhtml\Index
 {
     /**
      * Rollback Action
@@ -85,9 +82,7 @@ class Rollback extends \Magento\Backup\Controller\Adminhtml\Index implements Htt
             }
 
             if ($this->getRequest()->getParam('maintenance_mode')) {
-                $this->maintenanceMode->set(true);
-
-                if (!$this->maintenanceMode->isOn()) {
+                if (!$this->maintenanceMode->set(true)) {
                     $response->setError(
                         __(
                             'You need more permissions to activate maintenance mode right now.'
